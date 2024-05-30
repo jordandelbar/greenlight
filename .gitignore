@@ -22,3 +22,6 @@ go.work
 
 # Jebrains
 .idea/
+
+# dotenv
+/.env

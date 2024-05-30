@@ -18,6 +18,7 @@ func (app *application) createMovieHandler(w http.ResponseWriter, r *http.Reques
 	err := app.readJSON(w, r, &input)
 	if err != nil {
 		app.badRequestResponse(w, r, err)
+		return
 	}
 
 	fmt.Fprintf(w, "%+v\n", input)

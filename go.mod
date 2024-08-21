@@ -1,6 +1,6 @@
 module greenlight.jordandelbar.com
 
-go 1.22.4
+go 1.23.0
 
 require (
 	github.com/go-mail/mail v2.3.1+incompatible

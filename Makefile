@@ -19,6 +19,12 @@ help:
 .PHONY: run/dev-container
 run/dev-container:
 	docker compose up -d
+	docker exec greenlight_postgres bash -c "\
+        until pg_isready -U greenlight -d greenlight; do \
+            echo 'Waiting for PostgreSQL...'; \
+            sleep 2; \
+        done; \
+        psql -U greenlight -d greenlight -c 'CREATE EXTENSION IF NOT EXISTS citext;'"
 
 ## run/api: run the cmd/api application
 .PHONY: run/api
@@ -35,7 +41,8 @@ db/migrations/new:
 .PHONY:db/exec
 db/exec:
 	@echo 'Entering postgres docker'
-	docker exec -it greenlight_postgres /bin/bash
+	docker exec -it greenlight_postgres bash -c "\
+	psql -U greenlight -d greenlight"
 
 ## db/migrations/up: apply all up database migrations
 .PHONY: db/migrations/up
